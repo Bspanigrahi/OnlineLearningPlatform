@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('login.jpg');
+            background-size: cover;
+        }
+
+		main {
+						text-align: center;
+						background-color: rgba(255, 255, 255, 0.3);
+						padding: 28px;
+						border-radius: 8px;
+						box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+						backdrop-filter: blur(10px);
+						width: 600px;
+						margin: 60px auto;
+						box-shadow: 0px 0px 9px 9px rgb(121, 121, 121); 
+								  
+					          }
+
+        h1 {
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 99%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 50%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+			margin-left: 126px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #back {
+            width: 50%;
+            padding: 10px;
+            background-color: rgb(0, 128, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>User Login</h1>
+
+        <form id="userLoginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <button id="back" onclick="window.location.href='/signin.html';">Back to SignIn</button>
+    </main>
+
+    <script>
+        document.querySelector('#userLoginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+
+            
+            fetch(`/loginuser?email=${email}&password=${password}&type=user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                   
+                    sessionStorage.setItem('loggedInUserEmail', data.email);
+                    sessionStorage.setItem('userRole', data.role); 
+
+                 
+                    window.location.href = '/user_own_details.html';
+                } else {
+                    alert('Login failed! Please check your credentials.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+            });
+        });
+    </script>
+</body>
+</html>

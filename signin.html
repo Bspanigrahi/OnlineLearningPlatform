@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+	<style>
+	      
+	       * {
+	           margin: 0;
+	           padding: 0;
+	           box-sizing: border-box;
+	       }
+
+	       html, body {
+	           height: 100%;
+	       }
+
+	       body {
+	           display: flex;
+	           flex-direction: column;
+	           font-family: Arial, sans-serif;
+	           background-color: #f0f0f0;
+	           color: white;
+	           background-size: cover;
+	           background-position: center;
+	           background-attachment: fixed;
+	           align-items: center;
+	           background-image: url('/login.jpg');
+	           background-repeat: no-repeat;
+	           background-size: cover;
+	       }
+
+	       header {
+	           background-color: #ffffff;
+	           padding: 20px;
+	           box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	           display: flex;
+	           align-items: center;
+	           width: 100%;
+	           justify-content: space-between;
+	       }
+
+	       header h1 {
+	           font-size: 24px;
+	           color: #333;
+	           font-weight: bold;
+	           margin: 0;
+	       }
+
+	       nav {
+	           flex-grow: 1;
+	           display: flex;
+	           justify-content: center;
+	           gap: 30px;
+	       }
+
+	       nav a {
+	           text-decoration: none;
+	           font-size: 16px;
+	           color: #333;
+	       }
+
+	       nav a:hover {
+	           color: teal;
+	       }
+
+	       main {
+	           text-align: center;
+	           background-color: rgba(255, 255, 255, 0.3);
+	           padding: 17px;
+	           border-radius: 8px;
+	           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	           backdrop-filter: blur(10px);
+	           width: 400px;
+	           margin: 50px auto;
+	       }
+
+	       h1 {
+	           margin-bottom: 20px;
+	           color: rgb(255, 255, 255);
+	       }
+
+	       label {
+	           display: block;
+	           margin-top: 10px;
+	           font-weight: bold;
+	           color: rgb(255, 255, 255);
+	           text-align: left;
+	       }
+
+	       input[type="email"],
+	       input[type="password"],
+	       input[type="text"] {
+	           width: 99%;
+	           padding: 10px;
+	           margin: 8px 0 15px;
+	           border: 1px solid #ddd;
+	           border-radius: 4px;
+	           box-sizing: border-box;
+	           font-size: 16px;
+	       }
+
+	       button[type="submit"] {
+	           width: 50%;
+	           padding: 10px;
+	           background-color: #007BFF;
+	           color: white;
+	           border: none;
+	           border-radius: 5px;
+	           font-size: 16px;
+	           cursor: pointer;
+	           margin-left: 87px;
+	       }
+
+	       button[type="submit"]:hover {
+	           background-color: #0056b3;
+	       }
+
+	       form {
+	           display: flex;
+	           flex-direction: column;
+	           align-items: stretch;
+	       }
+
+	       #back {
+	           width: 50%;
+	           padding: 10px;
+	           background-color: rgb(0, 128, 255);
+	           color: rgb(0, 255, 128);
+	           border: none;
+	           border-radius: 5px;
+	           font-size: 16px;
+	           cursor: pointer;
+	           margin-top: 10px;
+	       }
+
+	       #back:hover {
+	           background-color: #0056b3;
+	       }
+
+	       button {
+	           width: 34%;
+	           padding: 10px;
+	           background-color: #007BFF;
+	           border: none;
+	           border-radius: 5px;
+	           font-size: 16px;
+	           cursor: pointer;
+	       }
+
+	   </style>
+</head>
+<body>
+    <header>
+        <h1>E-Learning Hub</h1>
+        <nav>
+            <a href="/home.html">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/adminlogin.html">Admin</a>
+            <a href="/Trainer.html">Trainer</a>
+            <a href="/allcourse.html">Courses</a>
+            <a href="/contact.html">Contact Us.</a>
+        </nav>
+        <div class="sign-in">
+            <a href="/userlogin.html">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <h1><b>User Registration</b></h1>
+        <form id="userForm" onsubmit="registerUser(event)">
+            <label for="name">Username:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="courseId">Course ID:</label>
+            <input type="text" id="courseid" name="courseId" required>
+
+            <button type="submit">Buy</button>
+        </form>
+        <br>
+        <button>   
+            <a class="login-btn" href="/userlogin.html">Login</a>
+        </button>
+    </main>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('courseId');
+
+            if (courseId) {
+                document.getElementById('courseid').value = courseId;
+            }
+        });
+
+        function registerUser(event) {
+            event.preventDefault(); 
+			
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const courseId = document.getElementById('courseid').value;
+
+            const userData = {
+                name: name,
+                email: email,
+                password: password,
+                courseId: courseId
+            };
+
+            fetch('/addUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('User registered successfully!');
+                document.getElementById('userForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error registering user. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>

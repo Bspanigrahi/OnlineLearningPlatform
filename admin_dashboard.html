@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+  
+        header {
+            background-color: #ffffff;
+            padding: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-right: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        nav a:hover {
+            color: teal;
+        }
+
+       
+        .sign-in {
+            margin-left: auto;
+        }
+
+        .sign-in a {
+            text-decoration: none;
+            background-color: teal;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .sign-in a:hover {
+            background-color: #005f5f;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            height: 100vh;
+            margin-top: 0; 
+			background-color: #f0f2f5;
+						background-image: url('/backgrounduser.jpg');
+						background-repeat: no-repeat;
+						background-size: cover;
+			        }
+        
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+            margin-top: 20px; 
+        }
+
+        .content-box {
+            background-color: transparent; 
+            border-radius: 10px; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+            padding: 60px; 
+            width: 80%; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            text-align: center; 
+            margin-top: 100px; 
+			box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 10px; 
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px; 
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: teal;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f5f; 
+        }
+
+        #logoutMessage {
+            color: green;
+        }
+
+        #add {
+            padding: 10px 20px;
+            background-color: teal;
+            color: white; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+       
+        #add:hover {
+            background-color: #005f5f; 
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="content-box">
+        <h1>Welcome to the Admin Dashboard</h1>
+        
+       
+        <nav>
+            <button id="add" onclick="window.location.href='/Course_admin.html';"><b>View Couses</b></button>
+			<button id="add" onclick="window.location.href='/Trainer_admin.html';"><b>View Trainer</b></button>
+			<button id="add" onclick="window.location.href='/userinfo.html';"><b>View Users</b></button>
+        </nav>
+
+        <br><br>
+
+        <button onclick="window.location.href='/home.html';">Logout</button>
+        <p id="logoutMessage" style="display: none;"></p> 
+
+        <script>
+           
+            
+
+           
+        </script>
+    </main>
+</body>
+</html>

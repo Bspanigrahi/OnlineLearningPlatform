@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Section</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: black; 
+        }
+
+       
+	    header {
+					background-color: #ffffff;
+						    padding: 20px;
+						    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+						    display: flex;
+						    align-items: center;
+						    width: 100%; 
+						    position: fixed; 
+						    top: 0; 
+						    left: 0; 
+						    z-index: 1000; 
+						    justify-content: space-between;
+						    padding-bottom: 4px;
+						    padding: 20px;
+		        }
+
+				header h1 {
+								    font-size: 24px;
+								    color: #333;
+								    font-weight: bold;
+								    margin: 0;
+								}
+
+								nav {
+								    flex-grow: 1;
+								    display: flex;
+								    justify-content: center; 
+								    gap: 30px;
+								}
+
+								nav a {
+								    text-decoration: none;
+								    font-size: 16px;
+								    color: #333;
+								}
+
+								nav a:hover {
+								    color: teal;
+								}
+
+				        
+				        .sign-in {
+				            margin-left: auto;
+				        }
+
+				        .sign-in a {
+				            text-decoration: none;
+				            background-color: teal;
+				            color: white;
+				            padding: 10px 20px;
+				            border-radius: 5px;
+				        }
+
+				        .sign-in a:hover {
+				            background-color: #005f5f;
+				        }
+
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+			background-image: url('/trainer.jpg'); 
+			  background-size: cover; 
+			  background-position: center; 
+            justify-content: flex-start; 
+            min-height: 100vh; 
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+			margin-top: 20px;
+			padding-top: 90px;
+        }
+
+       
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+			background-color: rgba(0, 0, 0, 0.5); 
+			           z-index: 1;
+            
+            z-index: 0; 
+        }
+
+       
+        #about {
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 10px;
+            z-index: 1; 
+			box-shadow: 0px 0px 9px 9px rgb(255, 255, 255); 
+			background-color: transparent;
+			color:white;
+        }
+#heading{
+	background-color: #ffffff;
+	backdrop-filter: blur(10px);
+}
+        h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: rgb(128, 64, 0);
+            background-color: rgba(255, 255, 255, 0.3); 
+            border-radius: 10px; 
+            padding: 10px 20px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+        }
+
+        .about-container {
+            display: flex;
+            justify-content: space-between; /* Changed to space-between */
+            align-items: center;
+            gap: 30px;
+            max-width: 900px; /* Set max width for better layout */
+            margin: 0 auto; /* Center the container */
+			background-color: transparent;
+			box-shadow: 0px 0px 9px 9px rgb(255, 255, 255); /* Add some shadow for depth */
+			border-radius: 7px;
+        }
+
+        .text-content {
+            flex: 1; /* Allow the text to take available space */
+            text-align: left; /* Align text to the left */
+            font-size: 18px; /* Font size for text */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px; /* Add some padding */
+            border-radius: 10px; /* Rounded corners */
+            backdrop-filter: blur(10px); /* Apply the blur effect */
+			background-color: transparent;
+        }
+
+        .image-container {
+            flex: 0 0 300px;
+        }
+
+        img {
+            width: 100%;
+            height: 352px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+		
+			   @media (max-width: 768px) {
+			       nav {
+			           display: flex;
+			           flex-direction: row; 
+			           align-items: center; 
+			           gap: 10px; 
+			       }
+
+			       .sign-in {
+			           margin-left: 0; 
+			           margin-top: 10px; 
+			       }
+
+			       header {
+			           flex-direction: column; 
+			           align-items: center; 
+			       }
+			   }
+    </style>
+</head>
+
+<body>
+	<header>
+	       <div><h1>E-Learning Hub</h1></div> 
+	       <nav>
+	           <a href="/home.html">Home</a>
+	           <a href="/about.html">About</a>
+	           <a href="/adminlogin.html">Admin</a>
+	           <a href="/Trainer.html">Trainer</a>
+	           <a href="/allcourse.html">Courses</a>
+	           <a href="/contact.html">Contact Us.</a>
+	       </nav>
+	       <div class="sign-in">
+	           <a href="/userlogin.html">Login</a>
+	       </div>
+	   </header>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2 id="heading">About Our Platform</h2>
+
+            <div class="about-container">
+                <!-- Text Content -->
+                <div class="text-content">
+                    <p><strong>Our Mission:</strong> To provide high-quality online education accessible to everyone, anywhere in the world.</p>
+                    <p><strong>Courses Offered:</strong> We offer a wide range of courses including Java, Python, Web Development, Data Science, and more, tailored to beginner and advanced learners.</p>
+                    <p><strong>Learning Flexibility:</strong> Learn at your own pace with 24/7 access to course materials, from anywhere and at any time.</p>
+                    <p><strong>Interactive Platform:</strong> Our platform includes interactive quizzes, assignments, and live coding challenges to enhance your learning experience.</p>
+                    <p><strong>Expert Mentorship:</strong> Learn from experienced mentors who are industry experts with years of practical experience.</p>
+                    <p><strong>Community Support:</strong> Join a global community of learners and collaborate, discuss, and share knowledge with peers from around the world.</p>
+                </div>
+
+                <!-- Image -->
+                <div class="image-container">
+                    <img src="/trainer.jpg" alt="Platform Image"> 
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

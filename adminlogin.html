@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+		
+		    *{
+		       margin: 0;
+		       padding: 0;
+		       box-sizing: border-box;
+		     }
+
+		   html, body {
+		       height: 100%; 
+		   }
+
+		   body {
+		       display: flex;
+		       flex-direction: column; 
+		       font-family: Arial, sans-serif;
+		       background-color: #f0f0f0;
+		       color: white;
+		       background-size: cover;
+		       background-position: center;
+		       background-attachment: fixed;
+			   align-items: center;
+			   background-image: url('/login.jpg');
+		     }
+
+		
+		   header {
+		       background-color: #ffffff;
+		       padding: 20px;
+		       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+		       display: flex;
+		       align-items: center;
+		       width: 100%;
+		     
+		       top: 0;
+		       left: 0;
+		       z-index: 1000;
+		       justify-content: space-between;
+		       padding-bottom: 4px;
+		       padding: 20px;
+		   }
+
+		   header h1 {
+		       font-size: 24px;
+		       color: #333;
+		       font-weight: bold;
+		       margin: 0;
+		   }
+
+		   nav {
+		       flex-grow: 1;
+		       display: flex;
+		       justify-content: center; 
+		       gap: 30px;
+		   }
+
+		   nav a {
+		       text-decoration: none;
+		       font-size: 16px;
+		       color: #333;
+		   }
+
+		   nav a:hover {
+		       color: teal;
+		   }
+
+		  
+		   .sign-in {
+		       margin-left: auto;
+		   }
+
+		   .sign-in a {
+		       text-decoration: none;
+		       background-color: teal;
+		       color: white;
+		       padding: 10px 20px;
+		       border-radius: 5px;
+		   }
+
+		   .sign-in a:hover {
+		       background-color: #005f5f;
+		   }
+
+
+		   main {
+		   				text-align: center;
+		   				background-color: rgba(255, 255, 255, 0.3);
+		   				padding: 28px;
+		   				border-radius: 8px;
+		   				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		   				backdrop-filter: blur(10px);
+		   				width: 600px;
+		   				margin: 60px auto;
+		   				box-shadow: 0px 0px 9px 9px rgb(121, 121, 121); 
+		   						  
+		   			          }
+        h1 {
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 99%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+		button[type="submit"] {
+					              width: 50%;
+					              padding: 10px;
+					              background-color: #007BFF;
+					              color: white;
+					              border: none;
+					              border-radius: 5px;
+					              font-size: 16px;
+					              cursor: pointer;
+								  margin-left: 136px;
+					          }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #back {
+            width: 20%;
+            padding: 10px;
+            background-color: rgb(0, 128, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+	<header>
+	       <div><h1>E-Learning Hub</h1></div> 
+	       <nav>
+	           <a href="/home.html">Home</a>
+	           <a href="/about.html">About</a>
+	           <a href="/adminlogin.html">Admin</a>
+	           <a href="/Trainer.html">Trainer</a>
+	           <a href="/allcourse.html">Courses</a>
+	           <a href="/contact.html">Contact Us.</a>
+	       </nav>
+	       <div class="sign-in">
+	           <a href="/userlogin.html">Login</a>
+	       </div>
+	   </header>
+    <main>
+        <h1>Admin Login</h1>
+        <form id="adminLoginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <button id="back" onclick="window.location.href='/home.html';">Back</button>
+    </main>
+
+    <script>
+        document.querySelector('#adminLoginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+
+            // Hardcoded admin check
+            if (email === 'ad@gmail.com' && password === 'a123') {
+                // Admin login successful
+                sessionStorage.setItem('loggedInUserEmail', email);
+                sessionStorage.setItem('userRole', 'admin');
+                window.location.href = '/admin_dashboard.html'; 
+            } else {
+                alert('Invalid admin credentials! Please check your email and password.');
+            }
+        });
+    </script>
+</body>
+</html>

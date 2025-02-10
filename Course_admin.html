@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+			background-image: url('/backgrounduser.jpg');
+						background-repeat: no-repeat;
+						background-size: cover;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        main {
+           
+            border-radius: 8px;
+            box-shadow: 0px 0px 4px 9px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+			margin-top: 170px;
+			
+			
+			
+			
+			text-align: center;
+			   				background-color: rgba(255, 255, 255, 0.3);
+			   				
+			   				
+			   				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			   				backdrop-filter: blur(10px);
+			   				
+			   				
+			   				box-shadow: 0px 0px 9px 9px rgb(121, 121, 121); 
+			
+			
+			
+			
+        }
+
+        #courseTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #courseTable th, #courseTable td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #courseTable th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 80%;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .success-message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1>Course List</h1>
+
+       
+        <div id="successMessage" class="success-message" style="display: none;">
+            Data saved successfully!
+        </div>
+
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Trainer Name</th>
+                    <th>Price</th>
+                    <th>Remove</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody id="courseTableBody">
+               
+            </tbody>
+        </table>
+
+        <button id="loadCoursesBtn">Load Courses</button>
+	
+
+      
+        <div class="form-container">
+            <h2>Add New Course</h2>
+            <form id="addCourseForm">
+                <input type="text" id="courseId" placeholder="Course ID" required>
+                <input type="text" id="courseName" placeholder="Course Name" required>
+                <input type="text" id="trainerName" placeholder="Trainer Name" required>
+                <input type="number" id="price" placeholder="Price" required>
+                <button type="submit">Add Course</button>
+            </form>
+        </div>
+		<button onclick="window.location.href='/admin_dashboard.html';">Back</button>
+    </main>
+
+    <script>
+        // Fetch course data and display it in a table
+        document.getElementById('loadCoursesBtn').addEventListener('click', function() {
+            fetch('/getAllCourse')  // API for fetching all courses
+                .then(response => response.json())
+                .then(courses => {
+                    const courseTableBody = document.getElementById('courseTableBody');
+                    courseTableBody.innerHTML = '';
+
+                    courses.forEach(course => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${course.courseId}</td>
+                            <td>${course.courseName}</td>
+                            <td>${course.trainerName}</td>
+                            <td>${course.price}</td>
+                            <td><button class="removeBtn" data-id="${course.courseId}">Remove</button></td>
+                            <td><button class="updateBtn" data-id="${course.courseId}">Update</button></td>
+                        `;
+                        courseTableBody.appendChild(row);
+                    });
+
+                 
+                    document.querySelectorAll('.removeBtn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const courseId = this.getAttribute('data-id');
+                            removeCourse(courseId, this.closest('tr'));
+                        });
+                    });
+
+                   
+                    document.querySelectorAll('.updateBtn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const courseId = this.getAttribute('data-id');
+                            updateCourse(courseId, this.closest('tr'));
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching courses:', error);
+                });
+        });
+
+       
+        function removeCourse(courseId, rowElement) {
+            fetch(`/deleteCourse/${courseId}`, {  
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error removing course');
+                }
+                rowElement.remove(); 
+            })
+            .catch(error => {
+                console.error('Error removing course:', error);
+            });
+        }
+
+       
+        function updateCourse(courseId, rowElement) {
+            fetch(`/getCourse/${courseId}`)
+                .then(response => response.json())
+                .then(course => {
+                    const updatedCourse = {
+                        courseName: prompt('Enter new course name:', course.courseName || ''),
+                        trainerName: prompt('Enter new trainer name:', course.trainerName || ''),
+                        price: prompt('Enter new price:', course.price || ''),
+                    };
+
+                    if (updatedCourse.courseName && updatedCourse.trainerName && updatedCourse.price) {
+                        fetch(`/updateCourse/${courseId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(updatedCourse),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('Course updated successfully');
+                            rowElement.querySelector('td:nth-child(2)').textContent = updatedCourse.courseName;
+                            rowElement.querySelector('td:nth-child(3)').textContent = updatedCourse.trainerName;
+                            rowElement.querySelector('td:nth-child(4)').textContent = updatedCourse.price;
+                        })
+                        .catch(error => {
+                            console.error('Error updating course:', error);
+                            alert('Failed to update course data');
+                        });
+                    } else {
+                        alert('Please fill in all fields to update the course.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching course data:', error);
+                    alert('Failed to load course data.');
+                });
+        }
+
+      
+        document.getElementById('addCourseForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const newCourse = {
+                courseId: document.getElementById('courseId').value,
+                courseName: document.getElementById('courseName').value,
+                trainerName: document.getElementById('trainerName').value,
+                price: document.getElementById('price').value,
+            };
+
+            fetch('/addcourse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCourse),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('loadCoursesBtn').click();
+                document.getElementById('addCourseForm').reset();
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error adding course:', error);
+            });
+        });
+    </script>
+
+</body>
+</html>

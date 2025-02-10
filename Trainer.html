@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Trainers</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+     
+		body {
+		    position: relative;
+		    font-family: Arial, sans-serif;
+		    text-align: center;
+		    background-image: url('trainer33.png');
+		    background-size: cover; /* Optional, for full background coverage */
+		  
+		}
+
+
+        
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        
+        header h1 {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+
+
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center; 
+            gap: 30px; 
+        }
+
+    
+        nav a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        nav a:hover {
+            color: teal;
+        }
+
+       
+        .sign-in a {
+            text-decoration: none;
+            background-color: teal;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .sign-in a:hover {
+            background-color: #005f5f;
+        }
+
+      
+        main {
+            margin-top: 120px; 
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            margin: 150px auto;
+            box-shadow: 0px 0px 9px 9px rgb(255, 255, 255); 
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+       
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        
+        @media (max-width: 768px) {
+            nav {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sign-in {
+                margin-left: 0;
+                margin-top: 10px; 
+            }
+
+            header {
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            table {
+                font-size: 14px; 
+            }
+
+            th, td {
+                padding: 8px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Learning Hub</h1>
+       
+        <nav>
+            <a href="/home.html">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/Admin.html">Admin</a>
+            <a href="/Trainer.html">Trainer</a>
+            <a href="/allcourse.html">Courses</a>
+            <a href="/contact.html">Contact Us.</a>
+        </nav>
+        
+        <div class="sign-in">
+			<a href="/userlogin.html">Login</a>
+        </div>
+    </header>  
+    
+    <main>
+        <h1>Available Trainers</h1>
+        <button id="loadCoursesBtn">Load Trainers</button>
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Qualification</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="userList"></tbody>
+        </table>
+    </main>
+    
+    <script>
+        document.getElementById('loadCoursesBtn').addEventListener('click', function () {
+            fetch('/getTrainer')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = ''; 
+
+                    
+                    data.forEach(trainer => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${trainer.id}</td>
+                            <td>${trainer.name}</td>
+                            <td>${trainer.subject}</td>
+                            <td>${trainer.qualification}</td>
+                            <td>${trainer.email}</td>
+                        `;
+                        userList.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching trainers:', error);
+                });
+        });
+    </script>
+</body>
+</html>
